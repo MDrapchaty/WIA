@@ -1,0 +1,5 @@
+I decided to go with Twneenjs because my search results showed it wasa more commonly used   animation library for javascript. The namecaught my eye initially, but then I began to see some of the things itcould do and it stuck out for me right away as a good choice. As Imentioned in the video I was not aware we were going to be gettinginto createjs and tweenjs in the class, but it was very helpful inteaching me how this library works and therefore show it off .I enjoyed making this project, I really like being responsible for myown time management over larger periods of time, few weeks, andplanning it out yourself. I felt we had a lot of freedom in what wewanted to do in our presentation, which library we would like to doand so on. I definitely feel that I learn well this way when beinginstructed to teach it yourself.
+
+
+Youtube link:
+https://youtu.be/jZRtHJrN6aI

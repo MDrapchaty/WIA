@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>presentation</title>
+
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+	<!-- <script type="text/javascript" src="js/TweenJS-0.6.2"></script>  -->
+
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/moon.css" id="theme">
+
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class = "reveal">
+		
+		<div class="slides">
+			<section>
+				<h1>What is Tweenjs ?</h1>
+				
+				<h3>By: Matthew Drapchaty</h3>
+			</section>
+			
+			<section>
+				
+				<section>
+
+					<h3>Tween.js is a javascript sub-library of Create.js which is a suite of modular libraries and tools which work together to create interactive content on open web technologies via HTML5 </h3>
+
+					<p>Tween.js specifically is for "tweening"... what is Tweening? scroll down to see</p>
+				</section>
+				<section>
+					<p>"Inbetweening or tweening is the process of generating intermediate frames between two images to give the appearance that the first image evolves smoothly into the second image. Inbetweens are the drawings between the key frames which help to create the illusion of motion." -wikepdia. Basically what this means is Tween.js allows us to create seemless animation on an html page, while also allowing us to call functions in between or after frames.</p> 
+				</section>
+				 
+				</section>
+				<section>
+					<h2>Tweenjs can do stuff like this ...</h2>
+					<canvas id="canvas1" width="600" height="400">
+						canvas is not supported.
+					</canvas>
+					<p>Lets find out how it works..</p>
+				</section>
+				<section>
+					<section>
+						<h2>Code</h2>
+						<p>After grabbing the Create.js(which includes Tween.js in it) CDN or downloaded library from createjs.com, we need to insert it as a script tag in the head of our html page. </p>
+						<pre>
+							<code>&ltscript src="https://code.createjs.com/createjs-2015.11.26.min.js"&gt&lt/script&gt
+							</code>
+						</pre>
+
+						<p>scroll down for more steps..</p>
+					</section>
+					<section>
+						<p>We can now use all of the awseome Tween.js features in our linked external javascript file or inline script, but first we need to make a canvas on our html page for our animation or "tween" to go inside of, we do this with the following code in the body of our html</p>
+						<pre> <code>&ltcanvas id="canvas1" width="600" height="400"&gtcanvas is not supported.&lt/canvas&gt
+						</code></pre>
+					</section>
+					<section>
+						<p>We will then create the stage for our animtaion, first by assigning the hmtl canvas to a variable, then giving it the createjs.Stage command, inside of our javascript after the window is fully loaded using the getDocumentById attribute to target to canvas from our html.</p>
+						<pre><code>
+	window.onload = function(){
+	var canvas = document.getElementById("canvas1");
+	var stage = new createjs.Stage(canvas);
+}
+						</code></pre>
+					</section>
+					<section>
+						<p>Next we will create our object or "shape", within the window.onload function  which we wish to be animated in our stage. I will name this one "ball"</p>
+						<pre><code>
+	window.onload = function(){
+	var canvas = document.getElementById("canvas1");
+	var stage = new createjs.Stage(canvas);
+	var ball = new createjs.Shape();
+}	
+						</code></pre>
+					</section>
+					<section>
+						<p>Great! now we are ready to create our shape, we will do this by calling our shape "ball", followed by the .graphics property to make adjustments to the shape, which will allow us make strokes and fill and actually draw the shape we desire. The code for the red ball surround by yellow stroke looks like so:</p>
+						<pre><code>
+	ball.graphics.setStrokeStyle(5, "round", "round");
+	ball.graphics.beginStroke("yellow");
+	ball.graphics.beginFill("red");
+	ball.graphics.drawCircle(0,0, 50);
+	ball.graphics.endStroke();
+	ball.graphics.endFill();
+						</code></pre>
+						<p>This sets the style for our strokes and fill and then draws a circle/stroke/fill with the settings we have chose and creates the red ball.</p>
+					</section>
+					<section>
+						<p>Now that we have our shape drawn we need to get it to actually move or tween. First we will give the ball a starting x and y position. Then we will create the actual tween action using the Tween property, which targets our shape and sets it to loop over and over. We will follow this Tween call with a series of .to .call or .wait actions to get the object to do what we want and in the order we want. .to will cause the shape to change from its current state to the properties and values specified in the code, .call will call upon a global function from your code, and .wait will create a pause between these actions. </p>
+						<pre><code>
+	ball.x = 100;
+	ball.y = 100;
+
+	createjs.Tween.get(ball, {loop:true}).to({x:ball.x, y:canvas.height -55}, 1500, createjs.Ease.bounceOut).wait(1000).call(blue).wait(1000).to({x:100, y:100}, 1500, createjs.Ease.bounceOut)
+	.wait(1000).call(red).wait(1000);
+						</code></pre>
+						
+					</section>
+					<section>
+						<p>As you may have noticed after the .call there are red and blue calls, these are functions which change the actual colors of the ball in between it bouncing back and forth and after a short .wait pause. Here are the functions that are changing the colors of the ball back and forth.</p>
+						<pre><code>
+	function blue(){
+		ball.graphics.setStrokeStyle(5, "round", "round");
+		ball.graphics.beginStroke("green");
+		ball.graphics.beginFill("blue");
+		ball.graphics.drawCircle(0,0, 50);
+		ball.graphics.endStroke();
+		ball.graphics.endFill();
+	}
+
+	function red(){
+		ball.graphics.setStrokeStyle(5, "round", "round");
+		ball.graphics.beginStroke("yellow");
+		ball.graphics.beginFill("red");
+		ball.graphics.drawCircle(0,0, 50);
+		ball.graphics.endStroke();
+		ball.graphics.endFill();
+	}
+						</code></pre>
+					</section>
+					<section>
+						<p>Now everything is set up and all thats left to do is call upon the stage and add our shape to it so it shows up on the stage and add an event listener that is checking after each "tick" or directive given so each of our directions will take effect. </p>
+						<pre><code>
+	stage.addChild(ball);
+	createjs.Ticker.addEventListener("tick", stage);
+						</code></pre>
+						<p>and that is it!</p>
+					</section>
+					<section>
+						And walla! we have a ball that bounces, pauses , changes color, then reverses essentially . like so.. <a href="#/2">Link to ball example</a>
+					</section>
+				</section>
+		</div>
+
+	</div>
+	
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script>
+		// Required, even if empty.
+		Reveal.initialize({
+			transition: 'convex'
+
+		});
+	</script>
+</body>
+</html>
